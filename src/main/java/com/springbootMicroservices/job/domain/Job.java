@@ -1,4 +1,4 @@
-package com.springbootMicroservices.job;
+package com.springbootMicroservices.job.domain;
 
 import lombok.Data;
 
