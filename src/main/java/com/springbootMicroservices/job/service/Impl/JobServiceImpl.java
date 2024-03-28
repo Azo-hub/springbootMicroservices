@@ -1,23 +1,51 @@
 package com.springbootMicroservices.job.service.Impl;
 
 import com.springbootMicroservices.job.domain.Job;
+import com.springbootMicroservices.job.repository.JobRepository;
 import com.springbootMicroservices.job.service.JobService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class JobServiceImpl implements JobService {
 
-    List<Job> jobList = new ArrayList<>();
+    @Autowired
+    private JobRepository jobRepository;
+
     @Override
     public List<Job> findAll() {
-        return jobList;
+        return jobRepository.findAll();
     }
 
     @Override
     public void createJob(Job job) {
-        jobList.add(job);
+        jobRepository.save(job);
+    }
+
+    @Override
+    public Job getJobById(Long id) {
+        return jobRepository.findById(id).orElse(null);
+    }
+
+    @Override
+    public boolean deleteJob(Long id) {
+        return jobList.removeIf(job -> job.getId().equals(id));
+    }
+
+    @Override
+    public Job updateJob(Long id, Job job) {
+       return jobList.stream().filter(j -> j.getId().equals(id)).findFirst().map(j -> {
+            j.setTitle(job.getTitle());
+            j.setDescription(job.getDescription());
+            j.setMinSalary(job.getMinSalary());
+            j.setMaxSalary(job.getMaxSalary());
+            j.setLocation(job.getLocation());
+            return j;
+        }).orElse(null);
+
     }
 }
