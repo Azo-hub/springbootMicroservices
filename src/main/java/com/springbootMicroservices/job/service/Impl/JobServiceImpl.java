@@ -44,14 +44,17 @@ public class JobServiceImpl implements JobService {
 
     @Override
     public Job updateJob(Long id, Job job) {
-       return jobList.stream().filter(j -> j.getId().equals(id)).findFirst().map(j -> {
-            j.setTitle(job.getTitle());
-            j.setDescription(job.getDescription());
-            j.setMinSalary(job.getMinSalary());
-            j.setMaxSalary(job.getMaxSalary());
-            j.setLocation(job.getLocation());
-            return j;
-        }).orElse(null);
+        Optional<Job> dbJob = jobRepository.findById(id);
+        dbJob.ifPresent(j -> {
+                    j.setTitle(job.getTitle());
+                    j.setDescription(job.getDescription());
+                    j.setMinSalary(job.getMinSalary());
+                    j.setMaxSalary(job.getMaxSalary());
+                    j.setLocation(job.getLocation());
+                }
+        );
+
+        return dbJob.get();
 
     }
 }
