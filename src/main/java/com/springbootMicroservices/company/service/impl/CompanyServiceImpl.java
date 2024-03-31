@@ -36,16 +36,23 @@ public class CompanyServiceImpl implements CompanyService {
 
         });
 
-        return dbCompany.get();
+        return dbCompany.orElse(null);
     }
 
     @Override
     public Company getCompanyById(Long id) {
-        return null;
+        return companyRepository.findById(id).orElse(null);
     }
 
     @Override
     public boolean deleteCompanyById(Long id) {
-        return false;
+        try{
+            companyRepository.deleteById(id);
+            return true;
+        } catch (RuntimeException e){
+            return false;
+        }
+
+
     }
 }

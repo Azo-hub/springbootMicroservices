@@ -51,6 +51,8 @@ public class JobServiceImpl implements JobService {
                     j.setMinSalary(job.getMinSalary());
                     j.setMaxSalary(job.getMaxSalary());
                     j.setLocation(job.getLocation());
+
+                    jobRepository.save(j);
                 }
         );
 
