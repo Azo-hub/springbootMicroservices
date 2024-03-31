@@ -1,9 +1,7 @@
 package com.springbootMicroservices.job.domain;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import com.springbootMicroservices.company.domain.Company;
+import jakarta.persistence.*;
 import lombok.Data;
 
 @Data
@@ -17,4 +15,7 @@ public class Job {
     private String minSalary;
     private String maxSalary;
     private String location;
+
+    @ManyToOne
+    private Company company;
 }
