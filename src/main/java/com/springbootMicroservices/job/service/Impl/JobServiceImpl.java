@@ -56,7 +56,7 @@ public class JobServiceImpl implements JobService {
                 }
         );
 
-        return dbJob.get();
+        return dbJob.orElse(null);
 
     }
 }

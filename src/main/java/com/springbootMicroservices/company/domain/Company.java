@@ -1,6 +1,7 @@
 package com.springbootMicroservices.company.domain;
 
 import com.springbootMicroservices.job.domain.Job;
+import com.springbootMicroservices.review.domain.Review;
 import jakarta.persistence.*;
 import lombok.Data;
 
@@ -16,7 +17,10 @@ public class Company {
     private String name;
     private String description;
 
-    @OneToMany
+    @OneToMany(mappedBy = "company")
     private List<Job> jobs;
+
+    @OneToMany(mappedBy = "company")
+    private Review review;
 
 }
