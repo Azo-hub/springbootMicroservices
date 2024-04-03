@@ -2,7 +2,9 @@ package com.springbootMicroservices.review.controller;
 
 import com.springbootMicroservices.review.domain.Review;
 import com.springbootMicroservices.review.repository.ReviewRepository;
+import com.springbootMicroservices.review.service.ReviewService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -13,36 +15,39 @@ import java.util.List;
 public class ReviewController {
 
     @Autowired
-    private ReviewRepository reviewRepository;
+    private ReviewService reviewService;
 
     @GetMapping("/reviews")
-    public ResponseEntity<List<Review>> getAllReviewByCompanyId(@PathVariable("companyId") long id) {
+    public ResponseEntity<List<Review>> getAllReview(@PathVariable("companyId") long id) {
 
-        return new ResponseEntity<>();
+        return new ResponseEntity<>(reviewService.getAllReview(id), HttpStatus.OK);
     }
 
     @PostMapping("/reviews")
-    public ResponseEntity<Review> createReviewByCompanyId(@PathVariable("companyId") long id,
-                                                          @RequestBody Review review) {
-
-        return new ResponseEntity<>();
+    public ResponseEntity<String> addReview(@PathVariable("companyId") long id, @RequestBody Review review) {
+        boolean reviewCreated = reviewService.addReview(id, review);
+        if(reviewCreated){
+            return new ResponseEntity<>("Review added Successfully", HttpStatus.CREATED);
+        }
+        return new ResponseEntity<>("Failed to add a new review", HttpStatus.NOT_IMPLEMENTED);
     }
 
     @GetMapping("/reviews/{reviewId}")
-    public ResponseEntity<Review> getReviewByReviewId(@PathVariable("companyId") long companyId,
+    public ResponseEntity<Review> getReview(@PathVariable("companyId") long companyId,
                                                       @PathVariable("reviewId") long reviewId) {
 
-        return new ResponseEntity<>();
+        return new ResponseEntity<>(reviewService.getReview(companyId,reviewId), HttpStatus.OK);
     }
 
     @PutMapping("/reviews/{reviewId}")
-    public ResponseEntity<List<Review>> updateReviewByReviewId() {
+    public ResponseEntity<Review> updateReview(@PathVariable("companyId") long companyId,
+                               @PathVariable("reviewId") long reviewId, @RequestBody Review review) {
 
         return new ResponseEntity<>();
     }
 
-    @GetMapping
-    public ResponseEntity<List<Review>> getAllReviewByCompanyId() {
+    @DeleteMapping("/reviews/{reviewId}")
+    public ResponseEntity<String> deleteReview(@PathVariable("reviewId") long reviewId) {
 
         return new ResponseEntity<>();
     }
