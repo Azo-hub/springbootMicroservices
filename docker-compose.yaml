@@ -4,7 +4,7 @@ services:
     image: postgres:latest
     environment:
       POSTGRES_USER: postgres
-      POSTGRES_PASSWORD: Pureand@applied1
+      POSTGRES_PASSWORD: *******************
       PGDATA: /data/postgres
     volumes:
       - postgres:/data/postgres
@@ -17,8 +17,8 @@ services:
     container_name: pgadmin_container
     image: elestio/pgadmin
     environment:
-      PGADMIN_DEFAULT_EMAIL: ${PGADMIN_DEFAULT_EMAIL:-readone.cybernet@gmail.com}
-      PGADMIN_DEFAULT_PASSWORD: ${PGADMIN_DEFAULT_PASSWORD:-Pureand@applied1}
+      PGADMIN_DEFAULT_EMAIL: ${PGADMIN_DEFAULT_EMAIL:-*******************@gmail.com}
+      PGADMIN_DEFAULT_PASSWORD: ${PGADMIN_DEFAULT_PASSWORD:-******************}
       PGADMIN_CONFIG_SERVER_MODE: 'False'
     volumes:
       - pgadmin:/var/lib/pgadmin
