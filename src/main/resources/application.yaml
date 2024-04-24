@@ -5,7 +5,7 @@ spring:
     url: jdbc:postgresql://localhost:5432/springbootmicroservices?serverTimezone=UTC
     name: springbootmicroservices
 
-    password: Pureand@applied1
+    password: *************
     username: postgres
 
 

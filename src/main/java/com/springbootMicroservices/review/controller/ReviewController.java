@@ -40,11 +40,11 @@ public class ReviewController {
     }
 
     @PutMapping("/reviews/{reviewId}")
-    public ResponseEntity<Review> updateReview(@PathVariable("companyId") long companyId,
+    public ResponseEntity<String> updateReview(@PathVariable("companyId") long companyId,
                                @PathVariable("reviewId") long reviewId, @RequestBody Review review) {
-        Review updatedReview = reviewService.updateReview(companyId, reviewId, review);
-        if(updatedReview != null){
-            return new ResponseEntity<>(updatedReview, HttpStatus.OK);
+        Boolean updated = reviewService.updateReview(companyId, reviewId, review);
+        if(updated){
+            return new ResponseEntity<>("updated successfully", HttpStatus.OK);
         }
 
         return new ResponseEntity<>(null, HttpStatus.NOT_IMPLEMENTED);

@@ -1,5 +1,6 @@
 package com.springbootMicroservices.company.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.springbootMicroservices.job.domain.Job;
 import com.springbootMicroservices.review.domain.Review;
 import jakarta.persistence.*;
@@ -11,16 +12,18 @@ import java.util.List;
 @Data
 public class Company {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     private String name;
     private String description;
 
-    @OneToMany(mappedBy = "company")
+    @JsonIgnore
+    @OneToMany(mappedBy = "company", cascade = CascadeType.REMOVE)
     private List<Job> jobs;
 
-    @OneToMany(mappedBy = "company")
+    @JsonIgnore
+    @OneToMany(mappedBy = "company", cascade = CascadeType.REMOVE)
     private List<Review> review;
 
 }

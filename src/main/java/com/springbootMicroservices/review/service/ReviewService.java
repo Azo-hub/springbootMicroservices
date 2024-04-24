@@ -9,6 +9,6 @@ public interface ReviewService {
     List<Review> getAllReview(long id);
     boolean addReview(long companyId, @RequestBody Review review);
     Review getReview(long companyId, long reviewId);
-    Review updateReview(long companyId, long reviewId, @RequestBody Review review);
+    Boolean updateReview(long companyId, long reviewId, @RequestBody Review review);
     Boolean deleteReview(long reviewId, long companyId);
 }

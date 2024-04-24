@@ -1,6 +1,5 @@
 package com.springbootMicroservices.review.service.impl;
 
-import com.springbootMicroservices.company.domain.Company;
 import com.springbootMicroservices.company.repository.CompanyRepository;
 import com.springbootMicroservices.review.domain.Review;
 import com.springbootMicroservices.review.repository.ReviewRepository;
@@ -16,6 +15,8 @@ public class ReviewServiceImpl implements ReviewService {
     private ReviewRepository reviewRepository;
     @Autowired
     private CompanyRepository companyRepository;
+
+    
     @Override
     public List<Review> getAllReview(long id) {
         return reviewRepository.findByCompany(companyRepository.findById(id).orElse(null));
@@ -38,15 +39,22 @@ public class ReviewServiceImpl implements ReviewService {
     }
 
     @Override
-    public Review updateReview(long companyId, long reviewId, Review review) {
-        if(companyRepository.findById(companyId).isPresent()
-                && reviewRepository.findById(reviewId).isPresent()) {
-            review.setCompany(companyRepository.findById(companyId).orElse(null));
-            reviewRepository.save(review);
+    public Boolean updateReview(long companyId, long reviewId, Review review) {
+        if(companyRepository.findById(companyId).isPresent() &&
+                reviewRepository.findById(reviewId).isPresent()){
+                    reviewRepository.findById(reviewId).ifPresent(dbReview -> {
+                        dbReview.setTitle(review.getTitle());
+                        dbReview.setDescription(review.getDescription());
+                        dbReview.setRating(review.getRating());
+                        dbReview.setCompany(companyRepository.findById(companyId).orElse(null));
+                        reviewRepository.save(dbReview);
 
-            return review;
+            });
+          return true;
+
         }
-        return null;
+
+        return false;
     }
 
     @Override

@@ -1,5 +1,6 @@
 package com.springbootMicroservices.job.service.Impl;
 
+import com.springbootMicroservices.company.service.CompanyService;
 import com.springbootMicroservices.job.domain.Job;
 import com.springbootMicroservices.job.repository.JobRepository;
 import com.springbootMicroservices.job.service.JobService;
@@ -15,6 +16,7 @@ public class JobServiceImpl implements JobService {
 
     @Autowired
     private JobRepository jobRepository;
+
 
     @Override
     public List<Job> findAll() {
